@@ -1,0 +1,134 @@
+% Base de datos de plantas y sus propiedades medicinales
+planta_propiedad('Achicoria', 'depurativo').
+planta_propiedad('Alcachofa', 'hepatoprotector').
+planta_propiedad('Anís', 'digestivo').
+planta_propiedad('Árnica', 'antiinflamatorio').  
+planta_propiedad('Boldo', 'hepático').
+planta_propiedad('Canela', 'antimicrobiano').
+planta_propiedad('Cedrón', 'sedante').
+planta_propiedad('Diente de león', 'depurativo').
+planta_propiedad('Enebro', 'antirreumático').
+planta_propiedad('Eucalipto', 'expectorante').
+planta_propiedad('Fenogreco', 'antinflamatorio').
+planta_propiedad('Fumaria', 'depurativo').
+planta_propiedad('Hamamelis', 'astringente').
+planta_propiedad('Hierbabuena', 'digestivo').
+planta_propiedad('Jengibre', 'antiemético').  
+planta_propiedad('Lavanda', 'relajante').
+planta_propiedad('Manzanilla', 'calmante').
+planta_propiedad('Menta', 'digestivo').
+planta_propiedad('Naranjo', 'calmante').
+planta_propiedad('Perejil', 'diurético').
+planta_propiedad('Romero', 'antioxidante').
+planta_propiedad('Sábila', 'cicatrizante').  
+planta_propiedad('Salvia', 'antiinflamatorio').
+planta_propiedad('Tila', 'sedante').
+planta_propiedad('Valeriana', 'sedante').
+planta_propiedad('Zarzaparrilla', 'depurativo').
+
+% Plantas que me fueron asignadas
+planta_propiedad('Borraja', 'diurético').
+planta_propiedad('Brionia blanca', 'antiinflamatorio').
+planta_propiedad('Bugambilia', 'expectorante').
+
+% Relaciones entre plantas y enfermedades que pueden tratar
+trata('Alcachofa', 'problemas hepáticos').
+trata('Anís', 'indigestión').
+trata('Árnica', 'contusiones').
+trata('Boldo', 'afecciones hepáticas').
+trata('Borraja', 'infecciones urinarias').
+trata('Brionia blanca', 'reumatismo').
+trata('Bugambilia', 'tos').
+trata('Canela', 'infecciones').
+trata('Cedrón', 'ansiedad').
+trata('Diente de león', 'problemas hepáticos').
+trata('Enebro', 'artritis').
+trata('Eucalipto', 'resfriados').
+trata('Fenogreco', 'inflamación').
+trata('Fumaria', 'eczema').
+trata('Hamamelis', 'hemorroides').
+trata('Hierbabuena', 'indigestión').
+trata('Jengibre', 'náuseas').
+trata('Lavanda', 'estrés').
+trata('Manzanilla', 'ansiedad').
+trata('Menta', 'indigestión').
+trata('Naranjo', 'insomnio').
+trata('Perejil', 'retención de líquidos').
+trata('Romero', 'fatiga').
+trata('Sábila', 'quemaduras').
+trata('Salvia', 'dolor de garganta').
+trata('Tila', 'estrés').
+trata('Valeriana', 'insomnio').
+trata('Zarzaparrilla', 'purificar la sangre').
+
+% Métodos de preparación
+preparacion('Alcachofa', 'infusión').
+preparacion('Anís', 'infusión').
+preparacion('Árnica', 'tópica').
+preparacion('Boldo', 'infusión').
+preparacion('Borraja', 'infusión').
+preparacion('Brionia blanca', 'tintura').
+preparacion('Bugambilia', 'infusión').
+preparacion('Canela', 'infusión').
+preparacion('Cedrón', 'infusión').
+preparacion('Diente de león', 'infusión').
+preparacion('Enebro', 'infusión').
+preparacion('Eucalipto', 'inhalación').
+preparacion('Fenogreco', 'infusión').
+preparacion('Fumaria', 'tópica').
+preparacion('Hamamelis', 'tópica').
+preparacion('Hierbabuena', 'infusión').
+preparacion('Jengibre', 'infusión').
+preparacion('Lavanda', 'aceite').
+preparacion('Manzanilla', 'infusión').
+preparacion('Menta', 'infusión').
+preparacion('Naranjo', 'infusión').
+preparacion('Perejil', 'infusión').
+preparacion('Romero', 'tintura').
+preparacion('Sábila', 'tópica').
+preparacion('Salvia', 'gargarismo').
+preparacion('Tila', 'infusión').
+preparacion('Valeriana', 'infusión').
+preparacion('Zarzaparrilla', 'infusión').
+
+% Reglas para determinar si una planta es efectiva para una enfermedad
+planta_eficaz_para_enfermedad(Planta, Enfermedad) :-
+    planta_propiedad(Planta, Propiedad),
+    trata(Planta, Enfermedad),
+    preparacion(Planta, Metodo).
+
+% Regla para encontrar plantas que pueden tratar una enfermedad usando un método específico
+planta_para_enfermedad_con_metodo(Planta, Enfermedad, Metodo) :-
+    trata(Planta, Enfermedad),
+    preparacion(Planta, Metodo).
+
+% Consultas de ejemplo
+% Consulta si la Lavanda es efectiva para tratar el estrés.
+% ?- planta_eficaz_para_enfermedad('Lavanda', 'estrés').
+
+% Encuentra qué planta puede tratar la fatiga usando el método de tintura, específicamente el Romero.
+% ?- planta_para_enfermedad_con_metodo('Romero', 'fatiga', 'tintura').
+
+% Consulta los métodos de preparación disponibles para la planta Salvia.
+% ?- preparacion('Salvia', Metodo).
+
+% Busca plantas que puedan tratar la ansiedad y determina el método de preparación usado.
+% ?- planta_para_enfermedad_con_metodo(Planta, 'ansiedad', Metodo).
+
+% Encuentra plantas con la propiedad 'calmante'.
+% ?- planta_propiedad(Planta, 'calmante').
+
+% Busca qué plantas pueden tratar quemaduras y cómo deben ser preparadas.
+% ?- planta_para_enfermedad_con_metodo(Planta, 'quemaduras', Metodo).
+
+% Encuentra plantas que puedan tratar problemas hepáticos y el método de preparación requerido.
+% ?- planta_para_enfermedad_con_metodo(Planta, 'problemas hepáticos', Metodo).
+
+% Busca plantas que tengan propiedades antiinflamatorias.
+% ?- planta_propiedad(Planta, 'antiinflamatorio').
+
+% Encuentra qué plantas pueden aliviar el estrés y cómo deben ser preparadas.
+% ?- planta_para_enfermedad_con_metodo(Planta, 'estrés', Metodo).
+
+% Encuentra qué plantas pueden tratar quemaduras y el método de preparación utilizado para cada una.
+% ?- planta_para_enfermedad_con_metodo(Planta, 'quemaduras', Metodo).
